@@ -1,0 +1,81 @@
+Arquitectura General - Microservicios
+
+    Servicio de Usuarios: Maneja el registro, autenticación y gestión de perfiles.
+    Servicio de Publicaciones: Crea y gestiona publicaciones en la red social.                          -- qué publicaciones se permiten? qué contenido? solamente texto? texto y imagenes?         
+    Servicio de Likes: Gestiona los likes en las publicaciones. 
+    Servicio de Recomendaciones: Ofrece recomendaciones de contenido a los usuarios.                     -- categorizar publis ? 
+
+    social-network/
+│
+├── user-service/
+│   ├── src/main/java/com/example/userservice
+│   ├── src/test/java/com/example/userservice
+│   └── Dockerfile
+│
+├── post-service/
+│   ├── src/main/java/com/example/postservice
+│   ├── src/test/java/com/example/postservice
+│   └── Dockerfile
+│
+├── like-service/
+│   ├── src/main/java/com/example/likeservice
+│   ├── src/test/java/com/example/likeservice
+│   └── Dockerfile
+│
+└── recommendation-service/
+    ├── src/main/java/com/example/recommendationservice
+    ├── src/test/java/com/example/recommendationservice
+    └── Dockerfile
+
+
+
+
+Arquitectura hexagonal
+
+user-service/
+│
+├── src/
+│   ├── main/
+│   │   ├── java/com/example/userservice/
+│   │   │   ├── domain/              <-- Núcleo de la lógica de negocio
+│   │   │   │   └── model/           <-- Entidades del dominio (User, etc.)
+│   │   │   │   └── service/         <-- Servicios de dominio (UserService, etc.)
+│   │   │   │
+│   │   │   ├── ports/               <-- Puertos (interfaces para entrada y salida)
+│   │   │   │   └── in/              <-- Puertos de entrada (interfaces para controladores o eventos)
+│   │   │   │   └── out/             <-- Puertos de salida (interfaces para repositorios, APIs, etc.)
+│   │   │   │
+│   │   │   ├── adapters/            <-- Adaptadores que implementan los puertos
+│   │   │   │   └── in/              <-- Adaptadores de entrada (controladores REST, listeners, etc.)
+│   │   │   │   └── out/             <-- Adaptadores de salida (repositorios, APIs externas, etc.)
+│   │   │   └── configuration/       <-- Configuración de Spring Boot (Beans, seguridad, etc.)
+│   │
+│   ├── test/                        <-- Tests
+│   │   └── java/com/example/userservice/
+│   │       └── domain/              <-- Tests de la lógica del dominio
+│   │       └── adapters/            <-- Tests de adaptadores (REST, repositorios, etc.)
+└── Dockerfile
+
+
+
+Tecnologías:
+- Spring Boot: Para crear tus microservicios.
+- Spring Data JPA: Para acceder a la base de datos (puedes usar PostgreSQL o MySQL).
+- Spring Security: Para gestionar la autenticación y autorización.
+- Spring MVC: Para construir la API REST.
+- Mockito: Para realizar pruebas unitarias de tus servicios.
+- Docker: Para contenerizar tus microservicios, facilitando su despliegue y escalabilidad.
+
+
+Funcionalidades:
+- Registro de usuarios
+- Autenticación y autorización (JWT)
+- Creación y gestión de publicaciones (CRUD)
+- Likes y comentarios en publicaciones (CRUD)
+- Recomendaciones de contenido (basadas en preferencias y comportamiento)
+
+
+Testing:
+- Unitariosy67ap- Integración
+- End-to-End
+
